@@ -1,54 +1,80 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import { FlatList, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { View } from 'react-native';
 import type { Item, Props } from 'src/types/questions_and_answers';
-import { styles } from './styles';
 
 export const QuestionsAndAnswers = ({
   itens,
-  Top,
-  Bottom,
   Line,
-  BottomLine,
-  TopLine,
-  HeightLine,
-  ColorLine,
-  BorderRadiusLine,
-  showsVerticalScrollIndicator,
-  FontSize,
-  FontWeight,
-  Color,
-  OpenMultiQuestions,
+  showsVerticalScrollIndicator = false,
+  OpenMultiQuestions = false,
+  Top = 8,
+  Bottom = 8,
+  BottomLine = 12,
+  TopLine = 12,
+  HeightLine = 1,
+  ColorLine = 'black',
+  ColorCircule = 'black',
+  BorderRadiusLine = 0,
+  FontSizeQuestion = 14,
+  FontSizeAnswer = 12,
+  FontWeightQuestion = '400',
+  FontWeightAnswer = 'normal',
+  Color = 'black',
 }: Props) => {
   const [itensState, setItensState] = useState(itens);
 
   const renderItem = ({ item }: Item) => {
-    const openDoubt = (id: number, open: boolean) => {
+    const openDoubt = (key: number, open: boolean) => {
       setItensState(
         OpenMultiQuestions
-          ? itensState.map(doubt => ({
+          ? itensState.map((doubt) => ({
               ...doubt,
-              open: doubt.id === id ? !open : doubt.open,
+              open: doubt.key === key ? !open : doubt.open,
             }))
-          : itensState.map(doubt => ({
+          : itensState.map((doubt) => ({
               ...doubt,
-              open: doubt.id === id ? !open : false,
-            })),
+              open: doubt.key === key ? !open : false,
+            }))
       );
     };
 
     return (
-      <TouchableOpacity onPress={() => openDoubt(item.id, item.open)}>
-        <View style={styles({ Top, Bottom }).container}>
-          <View style={styles({}).flexDirectionAndAlignItems}>
-            <View style={styles({}).circle} />
-            <View style={{ flexDirection: 'column' }}>
-              <Text style={styles({ FontSize, FontWeight, Color }).text}>
+      <TouchableOpacity onPress={() => openDoubt(item.key, item.open)}>
+        <View style={{ marginTop: Top, marginBottom: Bottom, maxWidth: '96%' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 16,
+                marginRight: 12,
+                backgroundColor: ColorCircule,
+              }}
+            />
+            <View style={{ flexDirection: 'column', width: '90%' }}>
+              <Text
+                style={{
+                  fontSize: FontSizeQuestion,
+                  fontWeight: FontWeightQuestion,
+                  color: Color,
+                  maxWidth: '95%',
+                }}
+              >
                 {item.question}
               </Text>
               {item.open && (
-                <Text style={styles({ FontSize, FontWeight, Color }).text}>
+                <Text
+                  style={{
+                    fontSize: FontSizeAnswer,
+                    fontWeight: FontWeightAnswer,
+                    color: Color,
+                    marginTop: 4,
+                    maxWidth: '95%',
+                  }}
+                >
                   {item.answer}
                 </Text>
               )}
@@ -56,15 +82,13 @@ export const QuestionsAndAnswers = ({
           </View>
           {Line && (
             <View
-              style={
-                styles({
-                  BottomLine,
-                  TopLine,
-                  HeightLine,
-                  ColorLine,
-                  BorderRadiusLine,
-                }).line
-              }
+              style={{
+                backgroundColor: ColorLine,
+                height: HeightLine,
+                marginBottom: BottomLine,
+                marginTop: TopLine,
+                borderRadius: BorderRadiusLine,
+              }}
             />
           )}
         </View>
@@ -75,7 +99,7 @@ export const QuestionsAndAnswers = ({
     <>
       <FlatList
         data={itensState}
-        keyExtractor={item => String(item.id)}
+        keyExtractor={(item) => String(item.key)}
         renderItem={renderItem}
         showsVerticalScrollIndicator={showsVerticalScrollIndicator}
       />
