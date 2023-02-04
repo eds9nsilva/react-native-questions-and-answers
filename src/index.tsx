@@ -1,9 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import { FlatList, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import { View } from 'react-native';
 import type { Item, Props } from 'src/types/questions_and_answers';
+import right from './Icons/right.png';
+import down from './Icons/down.png';
 
 export const QuestionsAndAnswers = ({
   itens,
@@ -17,6 +19,7 @@ export const QuestionsAndAnswers = ({
   HeightLine = 1,
   ColorLine = 'black',
   ColorCircule = 'black',
+  SizeCircule = 22,
   BorderRadiusLine = 0,
   FontSizeQuestion = 14,
   FontSizeAnswer = 12,
@@ -47,13 +50,20 @@ export const QuestionsAndAnswers = ({
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View
               style={{
-                width: 30,
-                height: 30,
-                borderRadius: 16,
+                width: SizeCircule,
+                height: SizeCircule,
+                borderRadius: SizeCircule * 2,
                 marginRight: 12,
                 backgroundColor: ColorCircule,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
-            />
+            >
+              <Image
+                source={item.open ? down : right}
+                style={{ width: SizeCircule / 2, height: SizeCircule / 2 }}
+              />
+            </View>
             <View style={{ flexDirection: 'column', width: '90%' }}>
               <Text
                 style={{

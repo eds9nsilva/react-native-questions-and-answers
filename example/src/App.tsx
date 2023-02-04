@@ -9,10 +9,12 @@ export default function App() {
     <View style={styles.container}>
       <QuestionsAndAnswers
         itens={questions}
-        OpenMultiQuestions
         ColorCircule="#ff0000"
+        OpenMultiQuestions
+        SizeCircule={30}
         FontSizeAnswer={12}
         FontSizeQuestion={14}
+        FontWeightQuestion="bold"
       />
     </View>
   );
