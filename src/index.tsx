@@ -43,7 +43,11 @@ export const QuestionsAndAnswers = ({
 
   const renderItem = ({ item }: Item) => {
     return (
-      <TouchableOpacity onPress={() => openDoubt(item.key, item.open)}>
+      <TouchableOpacity
+        onPress={() => {
+          openDoubt(item.key, item.open);
+        }}
+      >
         <View style={{ marginTop: Top, marginBottom: Bottom, maxWidth: '96%' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View
@@ -73,6 +77,7 @@ export const QuestionsAndAnswers = ({
               >
                 {item.question}
               </Text>
+
               {item.open && (
                 <Text
                   style={{
