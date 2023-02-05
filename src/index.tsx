@@ -1,8 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { FlatList, Text } from 'react-native';
-import { TouchableOpacity, Image } from 'react-native';
-import { View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, Image, View } from 'react-native';
 import type { Item, Props } from 'src/types/questions_and_answers';
 import right from './Icons/right.png';
 import down from './Icons/down.png';
@@ -29,21 +27,21 @@ export const QuestionsAndAnswers = ({
 }: Props) => {
   const [itensState, setItensState] = useState(itens);
 
-  const renderItem = ({ item }: Item) => {
-    const openDoubt = (key: number, open: boolean) => {
-      setItensState(
-        OpenMultiQuestions
-          ? itensState.map((doubt) => ({
-              ...doubt,
-              open: doubt.key === key ? !open : doubt.open,
-            }))
-          : itensState.map((doubt) => ({
-              ...doubt,
-              open: doubt.key === key ? !open : false,
-            }))
-      );
-    };
+  const openDoubt = (key: number, open: boolean) => {
+    setItensState(
+      OpenMultiQuestions
+        ? itensState.map((doubt) => ({
+            ...doubt,
+            open: doubt.key === key ? !open : doubt.open,
+          }))
+        : itensState.map((doubt) => ({
+            ...doubt,
+            open: doubt.key === key ? !open : false,
+          }))
+    );
+  };
 
+  const renderItem = ({ item }: Item) => {
     return (
       <TouchableOpacity onPress={() => openDoubt(item.key, item.open)}>
         <View style={{ marginTop: Top, marginBottom: Bottom, maxWidth: '96%' }}>
