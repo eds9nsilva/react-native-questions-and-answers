@@ -38,6 +38,7 @@ export interface StylesProps extends Text {
   HeightLine?: number;
   ColorLine?: string;
   ColorCircule?: string;
+  SizeCircule?: number;
   BorderRadiusLine?: number;
 }
 

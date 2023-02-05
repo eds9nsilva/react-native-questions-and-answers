@@ -9,10 +9,12 @@ export default function App() {
     <View style={styles.container}>
       <QuestionsAndAnswers
         itens={questions}
-        OpenMultiQuestions
         ColorCircule="#ff0000"
+        OpenMultiQuestions={false}
+        SizeCircule={30}
         FontSizeAnswer={12}
         FontSizeQuestion={14}
+        FontWeightQuestion="bold"
       />
     </View>
   );
@@ -20,10 +22,12 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 30,
-    marginStart: 30,
-    marginTop: 30,
+    backgroundColor: '#ddd',
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 100,
   },
 });
